@@ -7,13 +7,9 @@ from openpyxl import Workbook
 from openpyxl.styles import Alignment,Font
 
 ### Setup Variables ###
-URL='https://{id}.live.dynatrace.com/api/v1/'
-APITOKEN='XXXXXXXXXXXXXXXXXXXXX'
+URL='https://?????.live.dynatrace.com/api/v1/'
+APITOKEN='DT_TOKEN'
 DEST_FILENAME='dt-export.xlsx'
-
-
-
-
 
 ### function to go get the data
 def dtApiQuery(endpoint):
@@ -42,10 +38,12 @@ wb.remove(wb.active)
 
 ### Get & Process hosts data
 hostsIO=dtApiQuery('entity/infrastructure/hosts')
+# print(hostsIO)
 hosts=json.loads(hostsIO)
 
 wsHosts.append( ['hostId','displayName','osType','osVersion','hypervisorType','ipAddress1','ipAddress2','ipAddress3'] )
 for host in hosts:
+	print(host['entityId'])
 	wsHosts.append( [ host['entityId'],
 		host['displayName'],
 		host['osType'],
@@ -63,8 +61,6 @@ for fromHost in hosts:
 			wsHostHost.append( [ fromHost['entityId'],
 			toHost,
 		] )
-
-
 
 ### Get & Process processes data
 processesIO=dtApiQuery('entity/infrastructure/processes')
@@ -105,7 +101,7 @@ for process in processes:
 for ws in wb.worksheets:
 	for column_cells in ws.columns:
     		length = max(len(str(cell.value)) for cell in column_cells)
-    		ws.column_dimensions[column_cells[0].column].width = length+1
+    		# ws.column_dimensions[column_cells[0].column].width = length+1
 ### Set header format
 for ws in wb.worksheets:
 	for cell in ws["1:1"]:

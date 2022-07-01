@@ -52,3 +52,6 @@ This example app is very simple and does not have much logic built in.  On most 
 - - Your URL is incorrect
 - Dependency or module not found errors
 - - Your python install is incorrect or modules are missing, try the pip steps again and check for any errors there
+
+## Problem Details
+- python3 dt-excel-problems-details.py https://??????.live.dynatrace.com/api/v2/ DT_TOKEN output.xlsx now-2h
